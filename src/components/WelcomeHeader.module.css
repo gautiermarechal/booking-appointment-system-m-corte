@@ -1,0 +1,17 @@
+.headerRow{
+    justify-content: center;
+    text-align: center;
+}
+
+.header{
+    margin-top: 70px;
+    margin-left: 180px;
+    margin-right: 180px;
+}
+
+@media only screen and (max-width: 700px) {
+    .header{
+        margin: 0;
+        margin-top: 10px;
+    }
+}

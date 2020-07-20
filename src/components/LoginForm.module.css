@@ -1,0 +1,13 @@
+.mainRow{
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    background-color: #F0F2F5;
+}
+
+.formContainer{
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 40%;
+}
