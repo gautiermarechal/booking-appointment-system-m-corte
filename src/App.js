@@ -7,6 +7,7 @@ import SignUpForm from './components/SignUpForm';
 import NavigationBar from './components/NavigationBar';
 import WelcomeHeader from './components/WelcomeHeader';
 import HomePage from './components/HomePage';
+import SignUpSuccessful from './components/SignUpSuccessful';
 // ------------------------------------------------------
 
 //ROUTER IMPORTS-----------------------------------------
@@ -33,6 +34,9 @@ function App() {
       </Route>
       <Route path="/signup">
         <SignUpForm/>
+      </Route>
+      <Route path="/signup-successful">
+        <SignUpSuccessful/>
       </Route>
     </Container>
     </div>
