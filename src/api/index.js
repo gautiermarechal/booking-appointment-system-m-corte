@@ -9,7 +9,7 @@ export const getCustomers = () => api.get(`/customers`)
 export const updateCustomerByID = (id, payload) => api.put(`/customer/${id}`, payload)
 export const deleteCustomer = id => api.delete(`/customer/${id}`)
 export const getCustomerByID = id => api.get(`/customer/${id}`)
-export const getCustomerByEmail = email => api.get(`/customer/${email}`)
+export const getCustomerByEmail = email => api.get(`/customerbyemail/${email}`)
 
 const apis = {
     createCustomer,

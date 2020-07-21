@@ -1,22 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './LoginForm.module.css';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import apis from '../api';
+import { useHistory } from "react-router-dom";
 
 
 
 function LoginForm () {
+    let history = useHistory();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    // const [customers, setCustomers] = useState([]);
-
-    // useEffect(async () => {
-    //     await apis.getCustomers().then(customers => {
-    //         setCustomers(customers.data);
-    //     })
-    // }, [])
+    const [showModal, setShowModal] = useState(false);
+    const handleClose = () => setShowModal(false);
 
     //Forms Validations
     const [validateEmail, setValidateEmail] = useState(null);
@@ -78,29 +76,45 @@ function LoginForm () {
     }
 
     const handleLogInCustomer = async (event) => {
+        event.preventDefault();
         if(  validateEmail && validatePassword){
-
-            window.alert("Logging in customer!");
-
-            const payload = {email, password}
-    
-            await apis.getCustomerByEmail().then(customer  => {
-                if(customer.password === password){
-                    console.log('Logged in successfully!')
+            await apis.getCustomerByEmail(email).then(res => {
+                if(res.data.success){
+                    console.log(res);
+                    if(res.data.data.password === password){
+                        console.log('Customer Logged in!');
+                        history.push("/signup-successful");
+                    }
+                    else{
+                        return setShowModal(true);
+                    }
                 }
-                else{
-                    console.log('Error in login!')
-                    return;
-                }
-            }
-            )
-    
-        }
-        else{
-            event.preventDefault();
+            }).catch(error => {
+                console.log(error);
+                return setShowModal(true); 
+            })          
         }
         
 
+    }
+
+    function ModalFailedLogIn(props){
+        return (
+        <Modal show={props.show} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Log In Failed</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>We could not find you. Please retry or sign up.</Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+                Close
+            </Button>
+            <Button variant="success" onClick={handleClose} href={"/signup"}>
+                Sign Up
+            </Button>
+            </Modal.Footer>
+        </Modal>
+            );
     }
     return(
         <Row className={styles.mainRow}>
@@ -125,6 +139,7 @@ function LoginForm () {
                     <Button variant="primary" type="submit" onClick={handleLogInCustomer} href="/signup-successful">
                         Log In
                     </Button>
+                    <ModalFailedLogIn show={showModal}/>
                 </Form>
         </Row>
     );
