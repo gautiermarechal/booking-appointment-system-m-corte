@@ -6,10 +6,13 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import apis from '../api';
 import { useHistory } from "react-router-dom";
+import { useAppContext } from "../libs/contextLibs";
 
 
 
 function LoginForm () {
+    const { userHasAuthenticated } = useAppContext();
+    const { customerHasCreatedInfo } = useAppContext();
     let history = useHistory();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -83,6 +86,12 @@ function LoginForm () {
                     console.log(res);
                     if(res.data.data.password === password){
                         console.log('Customer Logged in!');
+                        userHasAuthenticated(true);
+                        customerHasCreatedInfo({
+                            firstName: res.data.data.firstName,
+                            lastName: res.data.data.lastName,
+                            email: res.data.data.email
+                        });
                         history.push("/signup-successful");
                     }
                     else{
@@ -116,6 +125,7 @@ function LoginForm () {
         </Modal>
             );
     }
+    
     return(
         <Row className={styles.mainRow}>
                 <Form className={styles.formContainer}>

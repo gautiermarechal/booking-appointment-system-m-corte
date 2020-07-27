@@ -11,13 +11,21 @@ export const deleteCustomer = id => api.delete(`/customer/${id}`)
 export const getCustomerByID = id => api.get(`/customer/${id}`)
 export const getCustomerByEmail = email => api.get(`/customerbyemail/${email}`)
 
+export const createBarber = payload => api.post(`/barber`, payload)
+export const getBarbers = () => api.get(`/barbers`)
+export const getBarberByID = id => api.get(`/barber/${id}`)
+
+
 const apis = {
     createCustomer,
     getCustomers,
     updateCustomerByID,
     deleteCustomer,
     getCustomerByID,
-    getCustomerByEmail
+    getCustomerByEmail,
+    createBarber,
+    getBarbers,
+    getBarberByID
 }
 
 export default apis;
