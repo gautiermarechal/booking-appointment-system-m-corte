@@ -8,19 +8,17 @@ import apis from '../api';
 import 'rc-calendar/assets/index.css';
 import moment from 'moment';
 import 'rc-time-picker/assets/index.css';
-import TimePicker from 'rc-time-picker';
 import Calendar from 'rc-calendar';
+import TimePicker from 'rc-time-picker';
 //--------------------------------
 
 function Booking(){
-    const timePickerElement = <TimePicker defaultValue={moment('00:00:00', 'HH:mm:ss')}
-        disabledHours={disabledHours}
-        disabledMinutes={disabledMinutes}
-        disabledSeconds={disabledSeconds}/>;
     const [barbers, setBarbers] = useState([]);
     const [barberAvailableTimes, setBarberAvailableTimes] = useState();
     const [chosenHairCut, setChosenHairCut] = useState();
     const [chosenBarber, setChosenbarber] = useState();
+    const [chosenDate, setChosenDate] = useState();
+    const [timeSlotsToDisplay, setTimeSlotToDisplay] = useState([]);
 
     useEffect(() => {
         async function get(){
@@ -45,7 +43,17 @@ function Booking(){
         return arr;
       }
 
+    function formatAvailableTimes() {
+        const formattedAvailableTimes = [];
+        for(let i = 0; i <= barberAvailableTimes.length - 1; i++){
+            barberAvailableTimes[i].start.split()
+        }
+    }
+
     function disabledHours(){
+        const allHours = ["00", "01", "02", "03", "04", "05", "06", "07", "08",
+                "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+                "20", "21", "22", "23", "24"]
         return;
     }
 
@@ -87,6 +95,31 @@ function Booking(){
         findChosenBarber(event.target.value)
     }
 
+    function handleDateChoice(event){
+        try{
+        console.log(event._d);
+        const formattedDateArray = event._d.toString().split(" ");
+        const dayName = formattedDateArray[0];
+        const month = formattedDateArray[1];
+        const dayNum = formattedDateArray[2];
+        const year = formattedDateArray[3];
+        console.log(formattedDateArray);
+        setChosenDate(event._d);
+
+
+        for(let i = 0; i <= barberAvailableTimes.length - 1; i++){
+            if(dayNum === barberAvailableTimes[i].start.day){
+                timeSlotsToDisplay.indexOf(barberAvailableTimes[i]) === -1 
+                ? timeSlotsToDisplay.push(barberAvailableTimes[i]) 
+                : console.log("Item already exists");
+            }
+        }
+    }
+        catch(e){
+            return;
+        }
+    }
+
     async function findChosenBarber(chosenBarber){
         const stringBarber = chosenBarber.split(" ");
         const firstNameBarber = stringBarber[0]
@@ -126,9 +159,16 @@ function Booking(){
             <Form.Group>
                 <Form.Label ><strong>Pick a date:</strong></Form.Label>
                 <Calendar
-                timePicker={timePickerElement}
                 disabledDate={disabledDate}
+                onSelect={handleDateChoice}
                 />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label ><strong>Pick a Time:</strong></Form.Label>
+                <Form.Group>
+                        {chosenDate ? <p>Hello</p>
+                        : <p></p>}
+                </Form.Group>
             </Form.Group>
             <Form.Group>
             <Button variant="primary" type="submit">
