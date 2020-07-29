@@ -14,7 +14,7 @@ import Calendar from 'rc-calendar';
 
 function Booking(){
     const [barbers, setBarbers] = useState([]);
-    const [barberAvailableTimes, setBarberAvailableTimes] = useState();
+    const [barberAvailableTimes, setBarberAvailableTimes] = useState([]);
     const [chosenHairCut, setChosenHairCut] = useState();
     const [chosenBarber, setChosenbarber] = useState();
     const [chosenDate, setChosenDate] = useState();
@@ -82,7 +82,7 @@ function Booking(){
         findChosenBarber(event.target.value)
     }
 
-    function handleDateChoice(event){
+    function handleDateChoice(event, props){
         try{
         console.log(event._d);
         const formattedDateArray = event._d.toString().split(" ");
@@ -104,6 +104,52 @@ function Booking(){
         catch(e){
             return;
         }
+    }
+
+    function convertMonth(month){
+        switch(month){
+            case "Jan":
+                return "01"
+            case "Feb":
+                return "02"
+            case "Mar":
+                return "03"
+            case "Apr":
+                return "04"
+            case "May": 
+                return "05"
+            case "Jun":
+                return "06"
+            case "Jul":
+                return "07"
+            case "Aug":
+                return "08"
+            case "Sep":
+                return "09"
+            case "Oct":
+                return "10"
+            case "Nov":
+                return "11"
+            case "Dec":
+                return "12"
+            default:
+                break;
+        }
+    }
+
+    function handleDateHighlight(value){
+        console.log(value._d);
+        const date = value._d.toString().split(" ");
+        const dateNumber = date[2]
+        const monthNumber = convertMonth(date[1]);
+        let isAvailable = false;
+        for(let i = 0; i <= barberAvailableTimes.length - 1; i++){
+            if(dateNumber === barberAvailableTimes[i].start.day && monthNumber === barberAvailableTimes[i].start.month){
+                isAvailable = true;
+            }
+        }
+        return isAvailable ? <div className="rc-calendar-date" style={{backgroundColor: 'green', textAlign: 'center', color: 'white'}}>{dateNumber}</div>
+        :<div className="rc-calendar-date">{dateNumber}</div>
     }
 
     async function findChosenBarber(chosenBarber){
@@ -144,7 +190,7 @@ function Booking(){
         <Row className={styles.mainRow}>
         <Form className={styles.formContainer}>
             <h2>Your Booking</h2>
-            <Form.Group name="haircut">
+            <Form.Group name="haircut" className={styles.stepContainer}>
                 <Form.Label ><strong>Choose your haircut:</strong></Form.Label>
                 <Form.Check onClick={handleHairCutChoice} name="haircut" key={"Male Haircut (20 min)"} type="radio" label="Male Haircut (20 min)" value="Male Haircut (20 min)"  />
                 <Form.Check onClick={handleHairCutChoice} name="haircut" key={"Male Haircut + Shampoo (30 min)"} type="radio" label="Male Haircut + Shampoo (30 min)" value="Male Haircut + Shampoo (30 min)"  />
@@ -153,7 +199,7 @@ function Booking(){
                 <Form.Check onClick={handleHairCutChoice} name="haircut" key={"Male Color (120 min)"} type="radio" label="Male Color (120 min)" value="Male Color (120 min)"  />
                 <Form.Check onClick={handleHairCutChoice} name="haircut" key={"Female Color (120 min)"} type="radio" label="Female Color (120 min)" value="Female Color (120 min)"   />
             </Form.Group>
-            <Form.Group>
+            <Form.Group className={styles.stepContainer}>
                 <Form.Label ><strong>Pick a barber:</strong></Form.Label>
                 <Form.Control as="select" custom onChange={handleBarberChoice}>
                     {barbers.map((barber) => (
@@ -161,15 +207,17 @@ function Booking(){
                     ))}
                 </Form.Control>
             </Form.Group>
-            <Form.Group>
+            <Form.Group className={styles.stepContainer}>
                 <Form.Label ><strong>Pick a date:</strong></Form.Label>
                 <Calendar
+                style={{width: '100%'}}
                 disabledDate={disabledDate}
                 onSelect={handleDateChoice}
+                dateRender={handleDateHighlight}
                 />
             </Form.Group>
-            <Form.Group>
-                <Form.Label ><strong>Pick a Time:</strong></Form.Label>
+            <Form.Group className={styles.stepContainer}>
+                <Form.Label ><strong>Pick an Appointment:</strong></Form.Label>
                 <Form.Group>
                 {chosenDate && timeSlotsToDisplay.length !== 0 ? 
                 timeSlotsToDisplay.map((timeSlot)=>
