@@ -3,13 +3,13 @@ import styles from './Booking.module.css';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert'
 import apis from '../api';
 //Calendar IMPORTS---------------
 import 'rc-calendar/assets/index.css';
 import moment from 'moment';
 import 'rc-time-picker/assets/index.css';
 import Calendar from 'rc-calendar';
-import TimePicker from 'rc-time-picker';
 //--------------------------------
 
 function Booking(){
@@ -19,6 +19,7 @@ function Booking(){
     const [chosenBarber, setChosenbarber] = useState();
     const [chosenDate, setChosenDate] = useState();
     const [timeSlotsToDisplay, setTimeSlotToDisplay] = useState([]);
+    const [appointmentsToDisplay, setAppointmentsToDisplay] = useState([]);
 
     useEffect(() => {
         async function get(){
@@ -42,20 +43,6 @@ function Booking(){
         }
         return arr;
       }
-
-    function formatAvailableTimes() {
-        const formattedAvailableTimes = [];
-        for(let i = 0; i <= barberAvailableTimes.length - 1; i++){
-            barberAvailableTimes[i].start.split()
-        }
-    }
-
-    function disabledHours(){
-        const allHours = ["00", "01", "02", "03", "04", "05", "06", "07", "08",
-                "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
-                "20", "21", "22", "23", "24"]
-        return;
-    }
 
     function disabledMinutes(h) {
         switch (h) {
@@ -106,11 +93,10 @@ function Booking(){
         console.log(formattedDateArray);
         setChosenDate(event._d);
 
-
         for(let i = 0; i <= barberAvailableTimes.length - 1; i++){
             if(dayNum === barberAvailableTimes[i].start.day){
                 timeSlotsToDisplay.indexOf(barberAvailableTimes[i]) === -1 
-                ? timeSlotsToDisplay.push(barberAvailableTimes[i]) 
+                ? timeSlotsToDisplay.push(barberAvailableTimes[i])
                 : console.log("Item already exists");
             }
         }
@@ -132,6 +118,25 @@ function Booking(){
             ).catch(error => {
                 console.log(error);
             })
+    }
+
+    function Appointment(props){
+        return (
+            <Alert variant="success">
+            <Alert.Heading>Available Appointment:</Alert.Heading>
+            <hr />
+            <p>
+            Date and time: <strong>{props.date.start.day}/{props.date.start.month}/{props.date.start.time}</strong>
+            <br/>
+            Barber: <strong>{chosenBarber}</strong>
+            <br/>
+            Service: <strong>{chosenHairCut}</strong>
+            </p>
+            <Button variant="primary" type="submit">
+                Book
+            </Button> 
+            </Alert>
+        );
     }
     
     return(
@@ -166,14 +171,13 @@ function Booking(){
             <Form.Group>
                 <Form.Label ><strong>Pick a Time:</strong></Form.Label>
                 <Form.Group>
-                        {chosenDate ? <p>Hello</p>
-                        : <p></p>}
+                {chosenDate && timeSlotsToDisplay.length !== 0 ? 
+                timeSlotsToDisplay.map((timeSlot)=>
+                    <Appointment date={timeSlot} />   
+                )
+                        : <p>No slot available</p>
+                }
                 </Form.Group>
-            </Form.Group>
-            <Form.Group>
-            <Button variant="primary" type="submit">
-                Book
-            </Button>                
             </Form.Group>
         </Form>
         </Row>
