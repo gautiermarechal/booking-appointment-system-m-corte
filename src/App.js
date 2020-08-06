@@ -13,6 +13,7 @@ import HomePage from './components/HomePage';
 import SignUpSuccessful from './components/SignUpSuccessful';
 import Booking from './components/Booking';
 import BookingConfirm from './components/BookingConfirm';
+import MyAppointments from './components/MyAppointments';
 // ------------------------------------------------------
 
 //ROUTER IMPORTS-----------------------------------------
@@ -30,6 +31,7 @@ function App() {
   const [customerInfoArray, customerHasCreatedInfo] = useState([]);
   const [bookingConfirmed, setBookingConfirmed] = useState({});
   const [userSession, setUserSession] = useStateWithLocalStorage('userSession');
+  const [sessionActive, setSessionActive] = useStateWithLocalStorage('sessionActive');
 
   useEffect(() => {
     onLoad();
@@ -57,7 +59,7 @@ function App() {
     <AppContext.Provider value = {{ isAuthenticated, userHasAuthenticated, customerInfoArray, customerHasCreatedInfo, bookingConfirmed, setBookingConfirmed }}>
     <Router>
     <div style={{backgroundColor: '#F0F2F5',}}>
-    <NavigationBar isLoggedIn={isAuthenticated} customerInfo={userSession} setLogOut={() => setLogOut}/>
+    <NavigationBar isLoggedIn={sessionActive} customerInfo={userSession} setLogOut={() => setLogOut}/>
     <Container className="main">
       <Route exact path="/">
         <WelcomeHeader/>
@@ -77,6 +79,9 @@ function App() {
       </Route>
       <Route path="/booking-confirmation">
         <BookingConfirm customerInfo={userSession} bookingInfo={bookingConfirmed}/>
+      </Route>
+      <Route path="/my-appointments">
+        <MyAppointments customerInfo={userSession} bookingInfo={bookingConfirmed}/>
       </Route>
     </Container>
     </div>

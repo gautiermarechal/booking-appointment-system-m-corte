@@ -28,6 +28,7 @@ function NavigationBar (props) {
                 <Navbar.Collapse style={{color: 'white'}} id="responsive-navbar-nav">
                 <Navbar.Brand><Link to="/" className={styles.brandText}>Mr. Corte - Barbershop</Link></Navbar.Brand>
                 <Nav.Link><Link onClick={handleLogOut} className={styles.links}>Log Out</Link></Nav.Link>
+                <Nav.Link><Link to="/my-appointments" className={styles.links}>My Appointments</Link></Nav.Link>
                 <Navbar.Brand><Link to="/" className={styles.customerName}>{customerInfo.firstName} {customerInfo.lastName}</Link></Navbar.Brand>
                 </Navbar.Collapse>
                 </>

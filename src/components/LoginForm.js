@@ -21,7 +21,7 @@ function LoginForm () {
 
     //Local Storage
     const [userSession, setUserSession] = useStateWithLocalStorage('userSession');
-
+    const [sessionActive, setSessionActive] = useStateWithLocalStorage('sessionActive');
     //Forms Validations
     const [validateEmail, setValidateEmail] = useState(null);
     const [validatePassword, setValidatePassword] = useState(null);
@@ -96,11 +96,13 @@ function LoginForm () {
                             email: res.data.data.email
                         });
                         setUserSession({
+                            _id: res.data.data._id,
                             firstName: res.data.data.firstName,
                             lastName: res.data.data.lastName,
                             email: res.data.data.email
                             }
                         );
+                        setSessionActive(true);
                         history.push("/booking");
                         window.location.reload();
                     }
