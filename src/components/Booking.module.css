@@ -1,6 +1,6 @@
 .mainRow{
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 20px;
     background-color: #F0F2F5;
 }
@@ -9,7 +9,7 @@
     background-color: white;
     border-radius: 10px;
     padding: 30px;
-    width: 40%;
+    width: 50%;
 }
 
 @media only screen and (max-width: 830px) {
@@ -31,4 +31,5 @@
     background-color: aliceblue;
     border-radius: 10px;
     padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }

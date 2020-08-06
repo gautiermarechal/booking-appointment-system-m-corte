@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 import apis from '../api';
+import { useHistory } from "react-router-dom";
+import { useAppContext } from "../libs/contextLibs";
 //Calendar IMPORTS---------------
 import 'rc-calendar/assets/index.css';
 import moment from 'moment';
@@ -12,16 +14,22 @@ import 'rc-time-picker/assets/index.css';
 import Calendar from 'rc-calendar';
 //--------------------------------
 
-function Booking(){
+function Booking(props){
+    console.log(localStorage.getItem('userSession'));
+    const { setBookingConfirmed } = useAppContext(); 
     const [barbers, setBarbers] = useState([]);
     const [barberAvailableTimes, setBarberAvailableTimes] = useState([]);
     const [chosenHairCut, setChosenHairCut] = useState();
     const [chosenBarber, setChosenbarber] = useState();
     const [chosenDate, setChosenDate] = useState();
     const [timeSlotsToDisplay, setTimeSlotToDisplay] = useState([]);
-    const [appointmentsToDisplay, setAppointmentsToDisplay] = useState([]);
+    const [customerInfo, setCustomerInfo] = useState();
+    const [barberObject, setBarberObject] = useState();
+
+    let history = useHistory();
 
     useEffect(() => {
+        setCustomerInfo(props.customerInfo)
         async function get(){
             await apis.getBarbers().then(res => { 
                 setBarbers(res.data.data)
@@ -84,13 +92,11 @@ function Booking(){
 
     function handleDateChoice(event, props){
         try{
-        console.log(event._d);
         const formattedDateArray = event._d.toString().split(" ");
         const dayName = formattedDateArray[0];
         const month = formattedDateArray[1];
         const dayNum = formattedDateArray[2];
         const year = formattedDateArray[3];
-        console.log(formattedDateArray);
         setChosenDate(event._d);
 
         for(let i = 0; i <= barberAvailableTimes.length - 1; i++){
@@ -138,7 +144,6 @@ function Booking(){
     }
 
     function handleDateHighlight(value){
-        console.log(value._d);
         const date = value._d.toString().split(" ");
         const dateNumber = date[2]
         const monthNumber = convertMonth(date[1]);
@@ -159,11 +164,53 @@ function Booking(){
         const foundBarber = barbers.find(barber => barber.firstName === firstNameBarber && barber.lastName === lastNameBarber);
         const barberID = foundBarber._id;
         await apis.getBarberByID(barberID).then(res => { 
-            setBarberAvailableTimes(res.data.data.availableTimes)
+            setBarberAvailableTimes(res.data.data.availableTimes);
+            setBarberObject(res.data.data);
         }
             ).catch(error => {
                 console.log(error);
             })
+    }
+
+    async function handleCreateBooking(e, props){
+        e.preventDefault();
+        let customer = {}
+        let barber = {}
+        await apis.getCustomerByEmail(customerInfo["email"]).then(res => {
+            customer = res.data.data;
+        }
+        )
+        
+        const barberID = barberObject._id;
+        await apis.getBarberByID(barberID).then(res => { 
+            barber = res.data.data;
+        }
+        )
+
+        const timeStart = {
+            year : props.date.start.year,
+            month : props.date.start.month, 
+            day : props.date.start.day, 
+            time : props.date.start.time
+        }
+
+        const appointmentObject = {
+            "customer": customer,
+            "barber": barber,
+            "service": chosenHairCut,
+            "startTime": timeStart
+        }
+
+        setBookingConfirmed(appointmentObject);
+
+
+
+
+        await apis.createAppointment(appointmentObject).then( res => {
+        }
+        )
+
+        history.push("/booking-confirmation");
     }
 
     function Appointment(props){
@@ -172,13 +219,13 @@ function Booking(){
             <Alert.Heading>Available Appointment:</Alert.Heading>
             <hr />
             <p>
-            Date and time: <strong>{props.date.start.day}/{props.date.start.month}/{props.date.start.time}</strong>
+            Date and time: <strong>{props.date.start.day}/{props.date.start.month}/{props.date.start.year} at {props.date.start.time}</strong>
             <br/>
             Barber: <strong>{chosenBarber}</strong>
             <br/>
             Service: <strong>{chosenHairCut}</strong>
             </p>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={(e) => handleCreateBooking(e, props)}>
                 Book
             </Button> 
             </Alert>
@@ -189,7 +236,7 @@ function Booking(){
         <>
         <Row className={styles.mainRow}>
         <Form className={styles.formContainer}>
-            <h2>Your Booking</h2>
+            <h2 style={{textAlign: "center", paddingBottom: "10px"}}>Your Booking</h2>
             <Form.Group name="haircut" className={styles.stepContainer}>
                 <Form.Label ><strong>Choose your haircut:</strong></Form.Label>
                 <Form.Check onClick={handleHairCutChoice} name="haircut" key={"Male Haircut (20 min)"} type="radio" label="Male Haircut (20 min)" value="Male Haircut (20 min)"  />

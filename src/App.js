@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useStateWithLocalStorage } from './api/useStateWithLocalStorage.js';
 import { AppContext } from "./libs/contextLibs";
 import './App.css';
 import Container from 'react-bootstrap/Container';
@@ -11,6 +12,7 @@ import WelcomeHeader from './components/WelcomeHeader';
 import HomePage from './components/HomePage';
 import SignUpSuccessful from './components/SignUpSuccessful';
 import Booking from './components/Booking';
+import BookingConfirm from './components/BookingConfirm';
 // ------------------------------------------------------
 
 //ROUTER IMPORTS-----------------------------------------
@@ -23,13 +25,19 @@ import {
 //------------------------------------------------------
 
 function App() {
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [customerInfoArray, customerHasCreatedInfo] = useState([]);
+  const [bookingConfirmed, setBookingConfirmed] = useState({});
+  const [userSession, setUserSession] = useStateWithLocalStorage('userSession');
 
   useEffect(() => {
     onLoad();
   }, []);
+
+  function setLogOut(){
+    userHasAuthenticated(false);
+  }
 
   async function onLoad() {
     try {
@@ -45,11 +53,11 @@ function App() {
   }
 
   return (
-    !isAuthenticating &&
-    <AppContext.Provider value = {{ isAuthenticated, userHasAuthenticated, customerInfoArray, customerHasCreatedInfo }}>
+    !isAuthenticating && 
+    <AppContext.Provider value = {{ isAuthenticated, userHasAuthenticated, customerInfoArray, customerHasCreatedInfo, bookingConfirmed, setBookingConfirmed }}>
     <Router>
     <div style={{backgroundColor: '#F0F2F5',}}>
-    <NavigationBar isLoggedIn={isAuthenticated.toString()} customerInfo={customerInfoArray}/>
+    <NavigationBar isLoggedIn={isAuthenticated} customerInfo={userSession} setLogOut={() => setLogOut}/>
     <Container className="main">
       <Route exact path="/">
         <WelcomeHeader/>
@@ -65,7 +73,10 @@ function App() {
         <SignUpSuccessful/>
       </Route>
       <Route path="/booking">
-        <Booking/>
+        <Booking customerInfo={userSession}/>
+      </Route>
+      <Route path="/booking-confirmation">
+        <BookingConfirm customerInfo={userSession} bookingInfo={bookingConfirmed}/>
       </Route>
     </Container>
     </div>

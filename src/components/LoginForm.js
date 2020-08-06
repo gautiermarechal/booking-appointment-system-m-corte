@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import apis from '../api';
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../libs/contextLibs";
-
+import { useStateWithLocalStorage } from '../api/useStateWithLocalStorage.js';
 
 
 function LoginForm () {
@@ -18,6 +18,9 @@ function LoginForm () {
     const [password, setPassword] = useState();
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
+
+    //Local Storage
+    const [userSession, setUserSession] = useStateWithLocalStorage('userSession');
 
     //Forms Validations
     const [validateEmail, setValidateEmail] = useState(null);
@@ -92,7 +95,14 @@ function LoginForm () {
                             lastName: res.data.data.lastName,
                             email: res.data.data.email
                         });
-                        history.push("/signup-successful");
+                        setUserSession({
+                            firstName: res.data.data.firstName,
+                            lastName: res.data.data.lastName,
+                            email: res.data.data.email
+                            }
+                        );
+                        history.push("/booking");
+                        window.location.reload();
                     }
                     else{
                         return setShowModal(true);
@@ -146,7 +156,7 @@ function LoginForm () {
                         </Form.Text>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={handleLogInCustomer} href="/signup-successful">
+                    <Button variant="primary" type="submit" onClick={handleLogInCustomer} href="/booking">
                         Log In
                     </Button>
                     <ModalFailedLogIn show={showModal}/>
