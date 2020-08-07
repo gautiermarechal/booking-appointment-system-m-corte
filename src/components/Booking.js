@@ -204,8 +204,6 @@ function Booking(props){
         setBookingConfirmed(appointmentObject);
 
 
-
-
         await apis.createAppointment(appointmentObject).then( res => {
         }
         )

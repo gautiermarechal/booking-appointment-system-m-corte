@@ -14,7 +14,8 @@ export const getCustomerByEmail = email => api.get(`/customerbyemail/${email}`)
 export const createBarber = payload => api.post(`/barber`, payload)
 export const getBarbers = () => api.get(`/barbers`)
 export const getBarberByID = id => api.get(`/barber/${id}`)
-export const updateBarber = (id, payload) => api.put(`/barber/${id}`, payload)
+export const getBarberByEmail = email => api.get(`/barberbyemail/${email}`)
+export const updateBarber = (id, payload) => api.put(`/barberupdate/${id}`, payload)
 
 
 export const createAppointment = payload => api.post(`/appointment`, payload)
@@ -45,7 +46,7 @@ const apis = {
     updateAppointment,
     getAppointmentByID,
     deleteAppointment,
-
+    getBarberByEmail
 }
 
 export default apis;

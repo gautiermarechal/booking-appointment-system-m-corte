@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import styles from './MyAppointments.module.css';
+import styles from './MyAppointmentsAdmin.module.css';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
+import Col from 'react-bootstrap/Col';
+
+import Table from 'react-bootstrap/Table'
 import apis from '../api';
 
-function MyAppointments(props){
+function MyAppointmentsAdmin(props){
     const [myAppointments, setMyAppointments] = useState([]);
 
     useEffect(()=>{
         async function get(){
         try{
             await apis.getAppointments().then(res => {
-            setMyAppointments(res.data.data.filter(element => element.customer._id === props.customerInfo._id).reverse());
+            setMyAppointments(res.data.data.filter(element => element.barber._id === props.customerInfo._id));
             })
         }
         catch(e){
@@ -33,7 +36,7 @@ function MyAppointments(props){
             <p>
             Date and time: <strong>{props.info.startTime[0].day}/{props.info.startTime[0].month}/{props.info.startTime[0].year} at {props.info.startTime[0].time}</strong>
             <br/>
-            Barber: <strong>{props.info.barber.firstName} {props.info.barber.lastName}</strong>
+            Customer: <strong>{props.info.customer.firstName} {props.info.customer.lastName}</strong>
             <br/>
             Service: <strong>{props.info.service}</strong>
             </p>
@@ -54,4 +57,4 @@ function MyAppointments(props){
     );
 }
 
-export default MyAppointments;
+export default MyAppointmentsAdmin;

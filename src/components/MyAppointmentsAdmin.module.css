@@ -1,0 +1,23 @@
+.mainRow{
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    background-color: #F0F2F5;
+    padding: 20px;
+}
+
+.appointment{
+    margin: 5px;
+    width: 80%;
+    border-radius: 20px;
+    transition: ease;
+}
+.appointment:hover{
+    border-color: green;
+}
+
+@media only screen and (max-width: 850px) {
+    .appointment{
+        width: 400px;
+    }
+}

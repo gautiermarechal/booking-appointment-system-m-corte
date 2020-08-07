@@ -14,6 +14,12 @@ import SignUpSuccessful from './components/SignUpSuccessful';
 import Booking from './components/Booking';
 import BookingConfirm from './components/BookingConfirm';
 import MyAppointments from './components/MyAppointments';
+import Dashboard from './components/Dashboard';
+import DashboardAdmin from './components/DashboardAdmin';
+import BarbersDBAdmin from './components/BarbersDBAdmin';
+import CustomersDBAdmin from './components/CustomersDBAdmin';
+import AllAppointments from './components/AllAppointments';
+import MyAppointmentsAdmin from './components/MyAppointmentsAdmin';
 // ------------------------------------------------------
 
 //ROUTER IMPORTS-----------------------------------------
@@ -82,6 +88,24 @@ function App() {
       </Route>
       <Route path="/my-appointments">
         <MyAppointments customerInfo={userSession} bookingInfo={bookingConfirmed}/>
+      </Route>
+      <Route path="/dashboard">
+        <Dashboard customerInfo={userSession} bookingInfo={bookingConfirmed}/>
+      </Route>
+      <Route path="/dashboard-admin">
+        <DashboardAdmin customerInfo={userSession} bookingInfo={bookingConfirmed}/>
+      </Route>
+      <Route path="/barbers-admin">
+        <BarbersDBAdmin customerInfo={userSession} bookingInfo={bookingConfirmed}/>
+      </Route>
+      <Route path="/customers-admin">
+        <CustomersDBAdmin customerInfo={userSession} bookingInfo={bookingConfirmed}/>
+      </Route>
+      <Route path="/all-appointments-admin">
+        <AllAppointments customerInfo={userSession} bookingInfo={bookingConfirmed}/>
+      </Route>
+      <Route path="/my-appointments-admin">
+        <MyAppointmentsAdmin customerInfo={userSession} bookingInfo={bookingConfirmed}/>
       </Route>
     </Container>
     </div>

@@ -18,6 +18,7 @@ function LoginForm () {
     const [password, setPassword] = useState();
     const [showModal, setShowModal] = useState(false);
     const handleClose = () => setShowModal(false);
+    const [isEmployee, setIsEmployee] = useState(false);
 
     //Local Storage
     const [userSession, setUserSession] = useStateWithLocalStorage('userSession');
@@ -84,36 +85,66 @@ function LoginForm () {
     const handleLogInCustomer = async (event) => {
         event.preventDefault();
         if(  validateEmail && validatePassword){
-            await apis.getCustomerByEmail(email).then(res => {
-                if(res.data.success){
-                    console.log(res);
-                    if(res.data.data.password === password){
-                        console.log('Customer Logged in!');
-                        userHasAuthenticated(true);
-                        customerHasCreatedInfo({
-                            firstName: res.data.data.firstName,
-                            lastName: res.data.data.lastName,
-                            email: res.data.data.email
-                        });
-                        setUserSession({
-                            _id: res.data.data._id,
-                            firstName: res.data.data.firstName,
-                            lastName: res.data.data.lastName,
-                            email: res.data.data.email
-                            }
-                        );
-                        setSessionActive(true);
-                        history.push("/booking");
-                        window.location.reload();
+            if(!isEmployee){
+                await apis.getCustomerByEmail(email).then(res => {
+                    if(res.data.success){
+                        console.log(res);
+                        if(res.data.data.password === password){
+                            console.log('Customer Logged in!');
+                            userHasAuthenticated(true);
+                            customerHasCreatedInfo({
+                                firstName: res.data.data.firstName,
+                                lastName: res.data.data.lastName,
+                                email: res.data.data.email
+                            });
+                            setUserSession({
+                                _id: res.data.data._id,
+                                firstName: res.data.data.firstName,
+                                lastName: res.data.data.lastName,
+                                email: res.data.data.email
+                                }
+                            );
+                            setSessionActive(true);
+                            history.push("/dashboard");
+                            window.location.reload();
+                        }
+                        else{
+                            return setShowModal(true);
+                        }
                     }
-                    else{
-                        return setShowModal(true);
+                }).catch(error => {
+                    console.log(error);
+                    return setShowModal(true); 
+                })  
+            }
+            else{
+                await apis.getBarberByEmail(email).then(res => {
+                    if(res.data.success){
+                        console.log(res);
+                        if(res.data.data.password === password){
+                            console.log('Admin Logged in!');
+                            userHasAuthenticated(true);
+                            setUserSession({
+                                _id: res.data.data._id,
+                                firstName: res.data.data.firstName,
+                                lastName: res.data.data.lastName,
+                                email: res.data.data.email,
+                                isAdmin: res.data.data.isAdmin,
+                                }
+                            );
+                            setSessionActive(true);
+                            history.push("/dashboard-admin");
+                            window.location.reload();
+                        }
+                        else{
+                            return setShowModal(true);
+                        }
                     }
-                }
-            }).catch(error => {
-                console.log(error);
-                return setShowModal(true); 
-            })          
+                }).catch(error => {
+                    console.log(error);
+                    return setShowModal(true); 
+                })  
+            }        
         }
         
 
@@ -157,7 +188,9 @@ function LoginForm () {
                                 <PasswordValidation isValid={validatePassword}/>
                         </Form.Text>
                     </Form.Group>
-
+                    <Form.Group controlId="formBasicCheckbox">
+                        <Form.Check type="checkbox" label="Admin" onChange={() => { isEmployee? setIsEmployee(false) : setIsEmployee(true) }}/>
+                    </Form.Group>
                     <Button variant="primary" type="submit" onClick={handleLogInCustomer} href="/booking">
                         Log In
                     </Button>
