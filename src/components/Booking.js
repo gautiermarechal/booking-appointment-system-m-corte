@@ -213,7 +213,7 @@ function Booking(props){
 
     function Appointment(props){
         return (
-            <Alert variant="success">
+            <Alert variant="info" className={styles.appointmentStyle}>
             <Alert.Heading>Available Appointment:</Alert.Heading>
             <hr />
             <p>
@@ -223,7 +223,7 @@ function Booking(props){
             <br/>
             Service: <strong>{chosenHairCut}</strong>
             </p>
-            <Button variant="primary" type="submit" onClick={(e) => handleCreateBooking(e, props)}>
+            <Button className={styles.signUpButton} variant="outline-dark" type="submit" onClick={(e) => handleCreateBooking(e, props)}>
                 Book
             </Button> 
             </Alert>
@@ -234,7 +234,7 @@ function Booking(props){
         <>
         <Row className={styles.mainRow}>
         <Form className={styles.formContainer}>
-            <h2 style={{textAlign: "center", paddingBottom: "10px"}}>Your Booking</h2>
+            <h2 style={{textAlign: "center", paddingBottom: "10px", borderWidth: '3px', borderColor: 'grey'}}>Your Booking</h2>
             <Form.Group name="haircut" className={styles.stepContainer}>
                 <Form.Label ><strong>Choose your haircut:</strong></Form.Label>
                 <Form.Check onClick={handleHairCutChoice} name="haircut" key={"Male Haircut (20 min)"} type="radio" label="Male Haircut (20 min)" value="Male Haircut (20 min)"  />
@@ -246,7 +246,7 @@ function Booking(props){
             </Form.Group>
             <Form.Group className={styles.stepContainer}>
                 <Form.Label ><strong>Pick a barber:</strong></Form.Label>
-                <Form.Control as="select" custom onChange={handleBarberChoice}>
+                <Form.Control className={styles.inputElement} as="select" custom onChange={handleBarberChoice}>
                     {barbers.map((barber) => (
                         <option>{barber.firstName} {barber.lastName}</option>
                     ))}

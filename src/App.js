@@ -68,8 +68,7 @@ function App() {
     <NavigationBar isLoggedIn={sessionActive} customerInfo={userSession} setLogOut={() => setLogOut}/>
     <Container className="main">
       <Route exact path="/">
-        <WelcomeHeader/>
-        <HomePage/>
+        <HomePage isLoggedIn={sessionActive}/>
       </Route>
       <Route path="/login">
       <LoginForm/>

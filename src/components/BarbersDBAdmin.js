@@ -25,7 +25,7 @@ function BarbersDBAdmin(props) {
     ,[]);
 
     return(
-        <Row className={styles.mainRow}>
+        <Row style={{ color: 'white'}}className={styles.mainRow}>
             <h1>Barbers</h1>
             <Table striped bordered hover variant="dark" responsive>
                 <thead>

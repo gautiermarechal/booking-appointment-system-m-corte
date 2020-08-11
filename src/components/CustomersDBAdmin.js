@@ -22,7 +22,7 @@ function CustomersDBAdmin() {
 
     return(
         <Row className={styles.mainRow}>
-            <h1>Customers</h1>
+            <h1 style={{height: '50px', color: 'white'}}>Customers</h1>
             <Table striped bordered hover variant="dark" responsive>
                 <thead>
                     <tr>

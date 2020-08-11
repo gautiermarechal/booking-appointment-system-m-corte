@@ -1,15 +1,27 @@
 .mainRow{
+    position: fixed;
     justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 20px;
     background-color: #F0F2F5;
+    background-image: url('../assets/tim-mossholder-q49oU8NeOHQ-unsplash.jpg');
+
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     width: 100vw;
+     height: 100vh;
+     overflow: scroll;
 }
 
 .formContainer{
+    margin-top: 100px;
+    margin-bottom: 100px;
+    position: relative;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 0px;
     padding: 30px;
     width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.9);
 }
 
 @media only screen and (max-width: 830px) {
@@ -21,15 +33,33 @@
     }
     .formContainer{
         background-color: white;
-        border-radius: 10px;
         padding: 20px;
-        width: 100%;
+        width: 95%;
+        margin-bottom: 50px;
     }
 }
 
 .stepContainer{
-    background-color: aliceblue;
-    border-radius: 10px;
+    background-color: #F8F8FF;
+    border-radius: 0px;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.inputElement{
+    border-radius: 0;
+    border-color: grey;
+    border-width: 2px;
+}
+
+.appointmentStyle{
+    border-radius: 0px;
+}
+
+.signUpButton{
+    width: 100%;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 3px;
+    margin-bottom: -10px;
 }

@@ -171,11 +171,15 @@ function LoginForm () {
     
     return(
         <Row className={styles.mainRow}>
-                <Form className={styles.formContainer}>
-                <h2>Log In</h2>
+            <div className={styles.formContainer}>
+                <div className={styles.welcomeHeader}>
+                    <h2 >Welcome back!</h2>
+                    <h4>Log in below</h4>
+                </div>
+                <Form className={styles.internalFormContainer}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange}/>
+                        <Form.Control className={styles.inputElement} type="email" placeholder="Enter email" onChange={handleEmailChange}/>
                         <Form.Text className="text-muted">
                                 <EmailValidation isValid={validateEmail}/>
                         </Form.Text>
@@ -183,7 +187,7 @@ function LoginForm () {
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange}/>
+                        <Form.Control className={styles.inputElement} type="password" placeholder="Password" onChange={handlePasswordChange}/>
                         <Form.Text className="text-muted">
                                 <PasswordValidation isValid={validatePassword}/>
                         </Form.Text>
@@ -191,11 +195,14 @@ function LoginForm () {
                     <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Admin" onChange={() => { isEmployee? setIsEmployee(false) : setIsEmployee(true) }}/>
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={handleLogInCustomer} href="/booking">
+                    <Form.Group className={styles.loginButtonContainer}>
+                    <Button variant="outline-dark" type="submit" onClick={handleLogInCustomer} href="/booking" className={styles.loginButton}>
                         Log In
                     </Button>
+                    </Form.Group>  
                     <ModalFailedLogIn show={showModal}/>
                 </Form>
+                </div>
         </Row>
     );
 }

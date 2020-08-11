@@ -25,26 +25,31 @@ function NavigationBar (props) {
 
 
     return(
-        <Navbar collapseOnSelect expand="md"  bg="dark" className={styles.navbarContainer}>
+        <Navbar collapseOnSelect expand="md" fixed="top" className={styles.navbarContainer}>
             {props.isLoggedIn 
             ?   <>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse style={{color: 'white'}} id="responsive-navbar-nav">
-                <Navbar.Brand><Link to="/" className={styles.brandText}>Mr. Corte - Barbershop</Link></Navbar.Brand>
+                <Navbar.Collapse style={{color: 'white', backgroundColor: 'rgba(0, 0, 0, 0.1)'}} id="responsive-navbar-nav">
                 <Nav.Link><Link onClick={handleLogOut} className={styles.links}>Log Out</Link></Nav.Link>
                 <Nav.Link><Link to={customerInfo.isAdmin?"/my-appointments-admin":"/my-appointments"} className={styles.links}><FontAwesomeIcon icon={faList}/> Your Appointments</Link></Nav.Link>
                 {customerInfo.isAdmin? <></> : <Nav.Link><Link to="/booking" className={styles.links}><Button variant="outline-light"><FontAwesomeIcon icon={faCalendarCheck} style={{marginRight: '5px'}}/>Book</Button></Link></Nav.Link>}
                 <Navbar.Brand><Link to={customerInfo.isAdmin?"/dashboard-admin":"/dashboard"} className={styles.customerName}>{customerInfo.firstName} {customerInfo.lastName}</Link></Navbar.Brand>
                 </Navbar.Collapse>
+                <Navbar.Brand><Link to="/" className={styles.logoCorte}>Mr. Corte - Barbershop</Link></Navbar.Brand>
                 </>
                 
             :   <>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse style={{color: 'white'}} id="responsive-navbar-nav">
-                <Navbar.Brand><Link to="/" className={styles.brandText}>Mr. Corte - Barbershop</Link></Navbar.Brand>
+                <Navbar.Collapse style={{color: 'white', backgroundColor: 'rgba(0, 0, 0, 0.09)'}} id="responsive-navbar-nav">
+                <Nav.Link><Link to="/about-us" className={styles.links}>About Us</Link></Nav.Link>
+                <Nav.Link><Link to="/services" className={styles.links}>Services</Link></Nav.Link>
+                <Nav.Link><Link to="/our-barbers" className={styles.links}>Our Barbers</Link></Nav.Link>
+                <Nav.Link><Link to="/our-location" className={styles.links}>Our Location</Link></Nav.Link>
+                <Nav.Link><Link to="/our-location" className={styles.links}>Gallery</Link></Nav.Link>
                 <Nav.Link><Link to="/login" className={styles.links}>Log In</Link></Nav.Link>
                 <Nav.Link><Link to="/signup" className={styles.links}>Sign Up</Link></Nav.Link>
                 </Navbar.Collapse> 
+                <Navbar.Brand><Link to="/" className={styles.logoCorte}>Mr. Corte - Barbershop</Link></Navbar.Brand>
                 </>
              }
             

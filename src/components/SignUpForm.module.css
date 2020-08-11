@@ -1,13 +1,63 @@
 .mainRow{
+    position: relative;
     justify-content: center;
-    margin-top: 100px;
-    margin-bottom: 20px;
     background-color: #F0F2F5;
+    background-image: url('../assets/tim-mossholder-q49oU8NeOHQ-unsplash.jpg');
+
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     width: 100vw;
+     height: 100vh;
+}
+
+.welcomeHeader{
+    color: white;
+    text-align: center;
 }
 
 .formContainer{
-    background-color: white;
-    border-radius: 10px;
+    bottom: 0;
+    position: absolute;
+    margin-bottom: 20px;
+}
+
+.internalFormContainer{
+    border-radius: 0;
     padding: 20px;
-    width: 40%;
+    width: 500px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.9);
+}
+
+.inputElement{
+    border-radius: 0;
+    border-color: grey;
+    border-width: 2px;
+}
+
+.signUpButton{
+    width: 100%;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 3px;
+    margin-bottom: -10px;
+}
+.signUpButtonContainer{
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 640px) {
+    .formContainer{
+        bottom: 0;
+        margin-bottom: 5px;
+        width: 95%;
+        
+    }
+    
+    .internalFormContainer{
+        width: 100%;
+    }
 }

@@ -1,10 +1,19 @@
 .navbarContainer{
     justify-content: left !important;
+    background-color:rgba(0, 0, 0, 0.8);
+    height: 10%;
 }
 
 .brandText{
     color: white !important;
     text-align: center;
+    float: right;
+}
+
+.logoCorte{
+    color: white !important;
+    text-align: center;
+    float: right;
 }
 
 .customerName{
@@ -14,5 +23,5 @@
 
 .links{
     color: white !important;
-    
+    opacity: 1 !important;
 }

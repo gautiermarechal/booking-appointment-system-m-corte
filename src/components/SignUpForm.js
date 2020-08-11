@@ -189,12 +189,16 @@ function SignUpForm () {
 
     return(
         <Row className={styles.mainRow}>
-                <Form className={styles.formContainer}>
-                <h2>Sign Up</h2>
+            <div className={styles.formContainer}>
+            <div className={styles.welcomeHeader}>
+                    <h2 >Welcome to the family!</h2>
+                    <h4>Sign up below</h4>
+            </div>
+                <Form className={styles.internalFormContainer}>
                 <Form.Row>
                     <Form.Group as={Col} controlId="formBasicFirstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control type="string" placeholder="Enter your first name" onChange={handleFirstNameChange}/>
+                            <Form.Control className={styles.inputElement} type="string" placeholder="Enter your first name" onChange={handleFirstNameChange}/>
                             <Form.Text className="text-muted">
                             <GeneralFieldValidation isValid={validateFirstName}/>
                             </Form.Text>
@@ -202,49 +206,53 @@ function SignUpForm () {
 
                     <Form.Group as={Col} controlId="formBasicLastName">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control type="string" placeholder="Enter your last name" onChange={handleLastNameChange}/>
+                            <Form.Control className={styles.inputElement} type="string" placeholder="Enter your last name" onChange={handleLastNameChange}/>
                             <Form.Text className="text-muted">
                             <GeneralFieldValidation isValid={validateLastName}/>
                             </Form.Text>
                     </Form.Group>
                 </Form.Row>
-                
-                    <Form.Group controlId="formBasicEmail">
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter your email address" onChange={handleEmailChange}/>
+                            <Form.Control className={styles.inputElement} type="email" placeholder="Enter your email address" onChange={handleEmailChange}/>
                             <Form.Text className="text-muted">
                                 <EmailValidation isValid={validateEmail}/>
                             </Form.Text>
                     </Form.Group>
                     
-                    <Form.Group controlId="formBasicConfirmEmail">
+                    <Form.Group as={Col} controlId="formBasicConfirmEmail">
                         <Form.Label>Confirm Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Confirm your email address" onChange={handleEmailConfirm}/>
+                        <Form.Control className={styles.inputElement} type="email" placeholder="Confirm your email address" onChange={handleEmailConfirm}/>
                         <Form.Text className="text-muted">
                                 <ConfirmValidationEmail isValid={validateConfirmEmail}/>
                             </Form.Text>
                     </Form.Group>
-
-                    <Form.Group controlId="formBasicPassword">
+                    </Form.Row>
+                    <Form.Row>
+                    <Form.Group as={Col} controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange}/>
+                        <Form.Control className={styles.inputElement} type="password" placeholder="Password" onChange={handlePasswordChange}/>
                         <Form.Text className="text-muted">
                             <PasswordValidation isValid={validatePassword}/>
                             </Form.Text>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicConfirmPassword">
+                    <Form.Group as={Col} controlId="formBasicConfirmPassword">
                         <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control type="password" placeholder="Confirm Password" onChange={handlePasswordConfirm}/>
+                        <Form.Control className={styles.inputElement} type="password" placeholder="Confirm Password" onChange={handlePasswordConfirm}/>
                         <Form.Text className="text-muted">
                                 <ConfirmValidationPassword isValid={validateConfirmPassword}/>
                             </Form.Text>
                     </Form.Group>
-
-                    <Button variant="primary" type="submit" onClick={handleCreateCustomer} href="/signup-successful">
+                    </Form.Row>
+                    <Form.Group className={styles.signUpButtonContainer}>
+                    <Button className={styles.signUpButton} variant="outline-dark" type="submit" onClick={handleCreateCustomer} href="/signup-successful">
                         Sign Up
                     </Button>
+                    </Form.Group>
                 </Form>
+                </div>
         </Row>
     );
 }

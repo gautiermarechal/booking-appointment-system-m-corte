@@ -1,7 +1,33 @@
+
 .mainRow{
+    position: relative;
     justify-content: center;
+    background-color:rgba(0, 0, 0, 0.4);
+    background-image: url('../assets/allef-vinicius-IvQeAVeJULw-unsplash.jpg');
+
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     width: 100vw;
+     height: 100vh;
+}
+
+.mainTitle{
+    margin-bottom: 50px;
     text-align: center;
-    margin-top: 100px;
-    margin-bottom: 20px;
-    background-color: #F0F2F5;
+    position: absolute;
+    bottom: 0;
+    color: white;
+    
+}
+.mainTitle h1{
+    font-size: 8vh;
+}
+
+.mainButton{
+    margin-top: 10px;
+    border-radius: 0;
+    width: 100%;
+    border-width: 3px;
 }

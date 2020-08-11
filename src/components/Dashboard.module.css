@@ -1,6 +1,64 @@
 .mainRow{
     justify-content: center;
-    margin-top: 100px;
-    margin-bottom: 20px;
     background-color: #F0F2F5;
+    position: fixed;
+    justify-content: center;
+    background-color: #F0F2F5;
+    background-image: url('../assets/tim-mossholder-q49oU8NeOHQ-unsplash.jpg');
+
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     width: 100vw;
+     height: 100vh;
+     overflow: scroll;
+}
+
+.internalFormContainer{
+    position: absolute;
+    margin-top: 120px;
+    margin-bottom: 50px;
+    border-radius: 0;
+    padding: 20px;
+    width: 90%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.9);
+    justify-content: center;
+}
+
+.welcomeHeader{
+    color: black;
+    text-align: center;
+}
+
+.dashboardButton{
+    border-color: black;
+    border-width: 3px;
+    border-radius: 0px !important;
+    text-decoration: none;
+}
+
+.internalRow{
+    width: 100%;
+}
+
+.cardContainer{
+    width: 100%;
+}
+
+.internalFormContainer a:hover {
+        text-decoration: none;
+    }
+
+@media only screen and (max-width: 640px) {
+    .dashboardButton{
+        width: fit-content;
+    }
+    .cardContainer{
+        width: fit-content;
+    }
+    .internalFormContainer{
+        padding: 10px;
+    }
 }

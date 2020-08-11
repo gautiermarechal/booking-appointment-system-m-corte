@@ -20,9 +20,11 @@ function DashboardAdmin(props){
     return(
         <>
         <Row className={styles.mainRow} >
-        <Link to="/barbers-admin" style={{height: '100%', width: '40%', borderRadius: '20px', margin: '10px', minWidth: '300px',}}>
-        <Card style={{ borderRadius: '20px', width: '100%', height: '250px', minWidth: '300px', borderStyle: 'none' }}>
-        <Button style={{height: '100%', borderRadius: '20px'}}>
+        <Row className={styles.internalFormContainer}>
+        <Row style={{width: '100%', textAlign: 'center', justifyContent: 'center'}}><h1 className={styles.welcomeHeader}>Dashboard Admin</h1></Row>
+        <Link to="/barbers-admin" style={{height: '100%', width: '40%', borderRadius: '20px', margin: '10px', minWidth: 'fit-content',}}>
+        <Card style={{ width: '100%', height: '250px', borderStyle: 'none' }} className={styles.cardContainer}>
+        <Button variant="outline-dark" className={styles.dashboardButton} style={{height: '100%', borderRadius: '20px'}}>
             <Card.Body>
             <FontAwesomeIcon icon={faCut} style={{fontSize: '100px', margin: '20px'}}/>
             <Card.Title className="text-center" >Barbers</Card.Title>
@@ -30,9 +32,9 @@ function DashboardAdmin(props){
         </Button>
         </Card>
         </Link>
-        <Link to="/customers-admin" style={{height: '100%', width: '40%', borderRadius: '20px', margin: '10px', minWidth: '300px',}}>
-        <Card style={{ borderRadius: '20px', width: '100%', height: '250px', minWidth: '300px', borderStyle: 'none' }}>
-        <Button style={{height: '100%', borderRadius: '20px'}}>
+        <Link to="/customers-admin" style={{height: '100%', width: '40%', borderRadius: '20px', margin: '10px', minWidth: 'fit-content',}}>
+        <Card style={{ width: '100%', height: '250px', borderStyle: 'none' }} className={styles.cardContainer}>
+        <Button variant="outline-dark" className={styles.dashboardButton} style={{height: '100%'}}>
             <Card.Body>
             <FontAwesomeIcon icon={faUser} style={{fontSize: '100px', margin: '20px'}}/>
             <Card.Title className="text-center" >Customers</Card.Title>
@@ -40,9 +42,9 @@ function DashboardAdmin(props){
         </Button>
         </Card>
         </Link>
-        <Link to="/all-appointments-admin" style={{height: '100%', width: '40%', borderRadius: '20px',margin: '10px', minWidth: '300px',}}>
-        <Card style={{ borderRadius: '20px', width: '100%', height: '250px', minWidth: '300px', borderStyle: 'none' }}>
-        <Button style={{height: '100%', borderRadius: '20px'}}>
+        <Link to="/all-appointments-admin" style={{height: '100%', width: '40%', borderRadius: '20px',margin: '10px',minWidth: 'fit-content',}}>
+        <Card style={{ width: '100%', height: '250px', borderStyle: 'none' }} className={styles.cardContainer}>
+        <Button variant="outline-dark" className={styles.dashboardButton} style={{height: '100%', borderRadius: '20px'}}>
             <Card.Body>
             <FontAwesomeIcon icon={faList} style={{fontSize: '100px', margin: '20px'}}/>
             <Card.Title className="text-center" >Appointments</Card.Title>
@@ -50,9 +52,9 @@ function DashboardAdmin(props){
         </Button>
         </Card>
         </Link>
-        <Link to="/my-appointments-admin" style={{height: '100%', width: '40%', borderRadius: '20px', margin: '10px', minWidth: '300px',}}>
-        <Card style={{ borderRadius: '20px', width: '100%', height: '250px', minWidth: '300px', borderStyle: 'none' }}>
-        <Button style={{height: '100%', borderRadius: '20px'}}>
+        <Link to="/my-appointments-admin" style={{height: '100%', width: '40%', borderRadius: '20px', margin: '10px', minWidth: 'fit-content',}}>
+        <Card style={{ width: '100%', height: '250px', borderStyle: 'none' }} className={styles.cardContainer}>
+        <Button variant="outline-dark" className={styles.dashboardButton} style={{height: '100%', borderRadius: '20px'}}>
             <Card.Body>
             <FontAwesomeIcon icon={faCalendarCheck} style={{fontSize: '100px', margin: '20px'}}/>
             <Card.Title className="text-center" >Your Appointments</Card.Title>
@@ -60,6 +62,7 @@ function DashboardAdmin(props){
         </Button>
         </Card>
         </Link>
+        </Row>
         </Row>
         </>
     );

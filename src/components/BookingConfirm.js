@@ -7,12 +7,11 @@ function BookingConfirm(props) {
     return(
         <>
         <Row className={styles.mainRow}>
-            <h1 style={{textAlign: 'center'}}>Your appointment is confirmed!
+            <div className={styles.internalFormContainer}>
+        <h1 style={{textAlign: 'center'}}>Your appointment is confirmed!
                 Thank you for your booking!
             </h1>
-        </Row>
-        <Row className={styles.mainRow}>
-        <Alert variant="success">
+        <Alert className={styles.appointmentStyle} variant="info">
             <Alert.Heading>Available Appointment:</Alert.Heading>
             <hr />
             <ul>
@@ -31,6 +30,7 @@ function BookingConfirm(props) {
             </li>
             </ul>
             </Alert>
+            </div>
         </Row>
         </>
     );

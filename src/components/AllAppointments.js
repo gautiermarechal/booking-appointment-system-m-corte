@@ -21,7 +21,7 @@ function AllAppointments() {
     ,[]);
 
     return(
-        <Row className={styles.mainRow}>
+        <Row style={{marginTop: '80px', color: 'white'}} className={styles.mainRow}>
             <h1>Appointments</h1>
             <Table striped bordered hover variant="dark" responsive>
                 <thead>

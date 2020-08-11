@@ -1,13 +1,64 @@
 .mainRow{
+    position: relative;
     justify-content: center;
-    margin-top: 100px;
-    margin-bottom: 20px;
     background-color: #F0F2F5;
+    background-image: url('../assets/edgar-chaparro-m8UvH75I2lI-unsplash.jpg');
+
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     width: 100vw;
+     height: 100vh;
+}
+
+.welcomeHeader{
+    color: white;
+    text-align: center;
 }
 
 .formContainer{
-    background-color: white;
-    border-radius: 10px;
+    bottom: 0;
+    margin-bottom: 100px;
+    position: absolute;
+    
+}
+
+.internalFormContainer{
+    border-radius: 0;
     padding: 20px;
-    width: 40%;
+    width: 500px;
+    height: 335px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.9);
+}
+
+.inputElement{
+    border-radius: 0;
+    border-color: grey;
+    border-width: 2px;
+}
+
+.loginButton{
+    width: 50%;
+    border-radius: 0px;
+    border-color: black;
+    border-width: 3px;
+}
+.loginButtonContainer{
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 640px) {
+    .formContainer{
+        bottom: 0;
+        margin-bottom: 50px;
+        width: 80%;
+        
+    }
+    
+    .internalFormContainer{
+        width: 100%;
+    }
 }
