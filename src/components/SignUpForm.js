@@ -168,8 +168,6 @@ function SignUpForm () {
              validatePassword &&
              validateConfirmPassword){
 
-            window.alert("Creating customer!");
-
 
 
             const payload = {firstName, lastName, email, password}

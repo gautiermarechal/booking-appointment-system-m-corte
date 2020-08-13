@@ -14,7 +14,7 @@ function MyAppointmentsAdmin(props){
         async function get(){
         try{
             await apis.getAppointments().then(res => {
-            setMyAppointments(res.data.data.filter(element => element.barber._id === props.customerInfo._id));
+            setMyAppointments(res.data.data.filter(element => element.barber._id === props.customerInfo._id).reverse());
             })
         }
         catch(e){
@@ -28,7 +28,7 @@ function MyAppointmentsAdmin(props){
 
     function Appointment(props){
         return (
-            <Alert variant="success" className={styles.appointment}>
+            <Alert variant="info" className={styles.appointment}>
             <Alert.Heading>Appointment</Alert.Heading>
             <p>ID# of appointment: {props.info._id}</p>
             <p>Created: {props.info.createdAt}</p>
@@ -47,11 +47,15 @@ function MyAppointmentsAdmin(props){
 
     return(
         <>
-            <h1>My Appointments</h1>
             <Row className={styles.mainRow}>
+            <h1 style={{textAlign: 'center', color: 'white', marginTop: '130px'}}>
+                Your Appointments:
+            </h1> 
+            <Row className={styles.internalFormContainer}>
             {myAppointments.map((element, index)=> {
                 return <Appointment key={index} info={element}/>;
             })}
+            </Row>
             </Row>
         </>
     );

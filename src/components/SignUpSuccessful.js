@@ -5,12 +5,12 @@ import Button from 'react-bootstrap/Button';
 
 function SignUpSuccessful(){
     return(
-        <React.Fragment>
         <Row className={styles.mainRow}>
-            <h3>Thanks for signing up! You can now log in to your account here:</h3>
+            <Row className={styles.internalFormContainer}>
+            <h3 style={{textAlign: 'center'}}>Thanks for signing up! You can now log in to your account here:</h3>
+            <Button className={styles.signUpButton} variant="outline-dark" href="/login">Log In</Button>
+            </Row>
         </Row>
-        <Row className={styles.mainRow2}><Button variant="success" href="/login">Log In</Button></Row>
-        </React.Fragment>
     );
 }
 

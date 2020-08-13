@@ -25,10 +25,10 @@ function MyAppointments(props){
 
     function Appointment(props){
         return (
-            <Alert variant="success" className={styles.appointment}>
+            <Alert variant="info" className={styles.appointment}>
             <Alert.Heading>Appointment</Alert.Heading>
-            <p>ID# of appointment: {props.info._id}</p>
-            <p>Created: {props.info.createdAt}</p>
+            <p style={{overflow: 'scroll'}}>ID# of appointment: <strong > {props.info._id} </strong></p>
+            <p>Created: <strong>{props.info.createdAt}</strong> </p>
             <hr />
             <p>
             Date and time: <strong>{props.info.startTime[0].day}/{props.info.startTime[0].month}/{props.info.startTime[0].year} at {props.info.startTime[0].time}</strong>
@@ -44,11 +44,15 @@ function MyAppointments(props){
 
     return(
         <>
-            <h1>My Appointments</h1>
             <Row className={styles.mainRow}>
+            <h1 style={{textAlign: 'center', color: 'white', marginTop: '130px'}}>
+                Your Appointments:
+            </h1> 
+            <Row className={styles.internalFormContainer}>
             {myAppointments.map((element, index)=> {
                 return <Appointment key={index} info={element}/>;
             })}
+            </Row>
             </Row>
         </>
     );

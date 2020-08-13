@@ -1,18 +1,42 @@
 .mainRow{
+    position: fixed;
     justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 5px;
     background-color: #F0F2F5;
-    padding: 20px;
+    background-image: url('../assets/tim-mossholder-q49oU8NeOHQ-unsplash.jpg');
+
+     /* Center and scale the image nicely */
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+     width: 100vw;
+     height: 100vh;
+     overflow: scroll;
+}
+
+.internalFormContainer{
+    position: relative;
+    border-radius: 0;
+    padding: 30px;
+    width: 90%;
+    margin-bottom: 30px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.9);
+    margin-top: 30px;
 }
 
 .appointment{
     margin: 5px;
-    width: 30%;
+    width: 100%;
+    border-radius: 0px;
+    border-width: 2px;
+}
+
+.appointment:hover{
+    border-color: #00679f;
 }
 
 @media only screen and (max-width: 850px) {
     .appointment{
-        width: 400px;
+        width: 100%;
     }
 }
