@@ -5,9 +5,9 @@ You can find the back-end at the following link: https://github.com/gautiermarec
 ## How to run it?
 Make sure to have an up-to-date version of Node.js before.
 
-# Download the zip file
+### Download the zip file
 
-### cd booking-appointment-system-m-corte
+### `cd booking-appointment-system-m-corte`
 
-### npm start 
+### `npm start`
 The project will run on localhost:8000
